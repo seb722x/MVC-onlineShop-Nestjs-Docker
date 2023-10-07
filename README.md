@@ -13,8 +13,18 @@
 ```
 docker-compose up -d
 ```
-6. run : ```npm start:dev``` (after run docker, if at first time it does not run because is trying to connect => ctrl + c and the try again, 
+6. run : ```npm run start:dev``` (after run docker, if at first time it does not run because is trying to connect => ctrl + c and the try again, 
 it is because sometimes docker is not ready inmediatly)
 
 7. postman:
+
+
+
+
+instrucciones:
+
+base de datos cuentas:
+
+email: paco@gmail.com - password: 123 - role: admin
+email: pedro@gmail.com - password: 123 - role- client
 

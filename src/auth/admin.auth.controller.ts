@@ -60,7 +60,16 @@ import { ValidRoles } from './interfaces';
       
     }
 
-    @Patch('users/:id/update')
+    
+  @Post('user/delete/:id')
+  @Redirect('/admin/users')
+  remove(@Param('id') id: number) {
+    console.log(id);
+    
+    return this.authService.remove(id);
+  }
+
+    @Post('users/:id/update')
     @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
     async update(
       @Body() body,
@@ -68,9 +77,7 @@ import { ValidRoles } from './interfaces';
       @Param('id') id: number,
       @Res() response,
     ) {
-      
-     console.log(body);
-     
+         
       await this.authService.update(id,body);
        return response.redirect('/admin/users/');
       //}///TODO this is because was failing

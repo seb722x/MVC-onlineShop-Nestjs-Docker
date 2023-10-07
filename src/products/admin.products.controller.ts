@@ -61,12 +61,12 @@ export class AdminProductsController {
      
   }
 
-  @Delete('products/delete/:id')
+  @Post('delete/:id')
   @Redirect('/admin/products')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     console.log(id);
     
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
   }
 
   @Get('products/:id')
@@ -83,7 +83,7 @@ export class AdminProductsController {
     
   }
 
-  @Patch('products/:id/update')
+  @Post('products/:id/update')
   @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
   async update(
     @Body() body,

@@ -613,7 +613,7 @@
 										}
 									]
 								},
-								"method": "DELETE",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -868,7 +868,7 @@
 										}
 									]
 								},
-								"method": "PATCH",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -880,7 +880,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:3000/admin/users/3/update",
+									"raw": "http://localhost:3000/admin/users/1/update",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -889,7 +889,7 @@
 									"path": [
 										"admin",
 										"users",
-										"3",
+										"1",
 										"update"
 									]
 								}

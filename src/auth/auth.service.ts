@@ -76,6 +76,10 @@ export class AuthService {
     return this.usersRepository.update(id, { balance: balance });
   }
 
+  async remove(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
+  }
+
   async update(id: number, updateProduct){
     const {name, balance, email, roles} = updateProduct
     const user = await this.findOne(+id);

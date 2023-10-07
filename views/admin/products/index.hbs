@@ -6,9 +6,9 @@
       </div>
       <div class="card-body">
         {{#if flashErrors}}
-        {{#each flashErrors}}
-          <p class="alert alert-danger">{{this}}</p>
-        {{/each}}
+          {{#each flashErrors}}
+            <p class="alert alert-danger">{{this}}</p>
+          {{/each}}
         {{/if}}
         <form method="POST" action="/admin/products/store"enctype="multipart/form-data">
           <div class="row">
@@ -75,7 +75,7 @@
                 </a>
               </td>
               <td>
-                <form action="/admin/products/delete/{{getId}}" method="DELETE">
+                <form action="/admin/delete/{{getId}}" method="POST">
                   <button class="btn btn-danger">
                     <i class="bi-trash"></i>
                   </button>

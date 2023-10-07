@@ -1,20 +1,33 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 import { Item } from './item.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+
+  @Column('text', {
+    unique: true,
+  })
   name: string;
-  @Column()
+
+  @Column({
+    type: 'text',
+    nullable: true
+  })
   description: string;
-  @Column()
+
+  @Column('text')
   image?: string;
-  @Column()
+
+  @Column('float',{
+    default: 0
+  })
   price: number;
 
-  @OneToMany(() => Item, (item) => item.product)
+  @ManyToMany(() => Item, (item) => item.product)
   items: Item[];
+
+  
 
   getId(): number {
     return this.id;

@@ -15,6 +15,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Auth, GetUser } from './decorators';
 import { ValidRoles } from './interfaces';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('/auth')
 export class AuthController {
@@ -34,25 +35,12 @@ export class AuthController {
 
   @Post('/store')
   async store(@Body() body:CreateUserDto, @Res() response, @Req() request) {
-    //const toValidate: string[] = ['name', 'email', 'password'];
-    //const errors: string[] = UserValidator.validate(body, toValidate);
-   //if (errors.length > 0) {
-   //  request.session.flashErrors = errors;
-   //  return response.redirect('/auth/register');
-   //} else {
-    console.log(body);
-
     await this.authService.create(body);
-      //const newUser = new User();
-      //newUser.setName(body.name);
-      //newUser.setPassword(body.password);
-      //newUser.setEmail(body.email);
-      //newUser.setRole('client');
-      //newUser.setBalance(1000);
-      //await this.authService.createOrUpdate(newUser);
-      return response.redirect('/auth/login');
+    console.log(body);
+    
+    return response.redirect('/auth/login');
     }
-  //}
+  
 
   @Get('/login')
   @Render('auth/login')
@@ -65,32 +53,14 @@ export class AuthController {
     };
   }
 
-  //@Post('/connect')
-  //async connect(@Body() body, @Req() request, @Res() response) {
-  //  
-  //  const { token } = await this.authService.login(body,request,response);
-  //  response.cookie('token', token, { httpOnly: true }); // Ejemplo con cookies (configúralo según tus necesidades)
-  //  return response.redirect('/');
-  //  
-  //};
-
-  //@Post('/connect')
-  ////@Redirect('/private3') // Redirige automáticamente a la ruta privada después del inicio de sesión
-  //async connect(@Body() loginUserDto, @Res() response) {
-  //  const { token } = await this.authService.login(loginUserDto);
-  //  response.json(token)
-  //  return { token }; // Este retorno no se utilizará debido a la redirección
-  //}
-
   @Post('/connect')
   @HttpCode(HttpStatus.OK)
-  async connect(@Body() loginUserDto, @Res({ passthrough: true }) response) {
+  async connect(@Body() loginUserDto:LoginUserDto, @Res({ passthrough: true }) response) {
     const { token } = await this.authService.login(loginUserDto);
 
-    // Establece la cookie con el token
-    response.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); // Configura según tus necesidades
+    response.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); 
 
-    return response.redirect('/products'); // Este retorno no se utilizará debido a la redirección
+    return response.redirect('/products'); 
 }
 
   @Get('/logout')

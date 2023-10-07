@@ -27,7 +27,7 @@ export class UserRoleGuard implements CanActivate {
       throw new BadRequestException('User not found');
     
     
-      if ( "admin"== user.role ) {
+      if ( validRoles.includes( user.role ) ) {
         return true;
       }
     console.log(user.id);

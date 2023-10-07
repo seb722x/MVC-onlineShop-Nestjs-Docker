@@ -46,7 +46,7 @@ export class ProductsService {
 
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.productsRepository.delete(id);
   }
 

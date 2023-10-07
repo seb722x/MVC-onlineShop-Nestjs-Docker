@@ -19,7 +19,7 @@ export class AuthService {
   ) {}
 
  
-  async create( createUserDto) {
+  async create( createUserDto:CreateUserDto) {
     try {
       const { password, ...userData } = createUserDto;
       const user = this.usersRepository.create({
@@ -60,18 +60,8 @@ export class AuthService {
       ...user,
       token: this.getJwtToken({ id: user.id, role:user.role})
     };
-    console.log(user);
-    
-    //if (user) {
-    //  request.session.user = {
-    //    id: user.id,
-    //    name: user.name,
-    //    role: user.role,
-    //  };
-    //  return response.redirect('/');
-    //} else {
-    //  return response.redirect('/auth/login');
-    //}
+
+   
   }
 
 
@@ -120,9 +110,3 @@ export class AuthService {
 }
 
 
-
- //async createOrUpdate(user: User): Promise<User> {
-  //  const hash = await bcrypt.hash(user.getPassword(), 10);
-  //  user.setPassword(hash);
-  //  return this.usersRepository.save(user);
-  //}

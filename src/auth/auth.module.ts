@@ -46,6 +46,6 @@ import { JwtTokenInterceptor } from './interceptors/jwt.interceptor';
     // })
 
   ],
-  exports: [ TypeOrmModule, JwtStrategy, PassportModule, JwtModule ]
+  exports: [ TypeOrmModule, JwtStrategy, PassportModule, JwtModule, AuthService ]
 })
 export class AuthModule {}

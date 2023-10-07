@@ -20,23 +20,6 @@ export class ProductsController {
     if (product === null) {
       return response.redirect('/products');
     }
-
-    //const viewData = [];
-    //viewData['title'] = product.getName() + ' - Online Store';
-    //viewData['subtitle'] = product.getName() + ' - Product //Information';
-    //viewData['product'] = product;
-    //response.render('products/show', { viewData: viewData });
-    return {product}; //
+    return {product}; 
   }
-
-
-
-
-
-
-
-
-
-
-
 }

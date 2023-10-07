@@ -5,12 +5,17 @@ import { Product } from './product.entity';
 export class Item {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+
+  @Column('int')
   quantity: number;
-  @Column()
+
+  @Column('float')
   price: number;
+
+
   @ManyToOne(() => Order, (order) => order.items)
   order: Order;
+
   @ManyToOne(() => Product, (product) => product.items)
   product: Product;
   getId(): number {

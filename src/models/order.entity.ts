@@ -8,14 +8,14 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Item } from './item.entity';
-
-
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+
+  @Column('float')
   total: number;
+
   @CreateDateColumn()
   date: Date;
 

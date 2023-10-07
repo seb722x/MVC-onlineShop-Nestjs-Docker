@@ -3,6 +3,7 @@ import {
   Get,
   Render,
   Post,
+  Delete,
   Body,
   Redirect,
   UseInterceptors,
@@ -10,23 +11,21 @@ import {
   Param,
   Req,
   Res,
+  Patch,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Product } from '../models/product.entity';
-import * as fs from 'fs';
 import { ProductsService } from 'src/products/products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Auth } from 'src/auth/decorators';
 import { ValidRoles } from 'src/auth/interfaces';
 
 @Controller('/admin')
-@Auth( ValidRoles.admin )
 export class AdminProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   
   @Get('/')
- // @Auth( ValidRoles.admin )
+  @Auth( ValidRoles.admin )
   @Render('admin/index')
   indexAdmin() {
     const viewData = [];
@@ -38,7 +37,7 @@ export class AdminProductsController {
 
  
   @Get('products/')
-  //@Auth( ValidRoles.admin )
+  @Auth( ValidRoles.admin )
   @Render('admin/products/index')
   async index() {
     const viewData = [];
@@ -50,24 +49,24 @@ export class AdminProductsController {
   }
 
   @Post('products/store')
+  @Auth( ValidRoles.admin )
   @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
   @Redirect('/admin/products')
   async store(
     @Body() body:CreateProductDto,
     @UploadedFile() file: Express.Multer.File,
-    @Req() request,
   ) {
-  
-    console.log(body);
-    
      await this.productsService.create(body,file);
-    
+     console.log(body);
+     
   }
 
-  @Post('products/:id')
+  @Delete('products/delete/:id')
   @Redirect('/admin/products')
   remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+    console.log(id);
+    
+    return this.productsService.remove(+id);
   }
 
   @Get('products/:id')
@@ -84,13 +83,12 @@ export class AdminProductsController {
     
   }
 
-  @Post('products/:id/update')
+  @Patch('products/:id/update')
   @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
   async update(
     @Body() body,
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: number,
-    @Req() request,
     @Res() response,
   ) {
     

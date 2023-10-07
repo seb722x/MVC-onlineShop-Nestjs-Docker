@@ -57,6 +57,7 @@ export class CartController {
     if (!productsInSession) {
       productsInSession = {};
     }
+   
     productsInSession[id] = body.quantity;
     request.session.products = productsInSession;
   }
@@ -70,7 +71,7 @@ export class CartController {
   
 
   @Get('/purchase')
-  @Auth( ValidRoles.admin )
+  @Auth( ValidRoles.admin,ValidRoles.client )
   async purchase(@Req() request, @Res() response,@GetUser() {id}: User) {
    
       const user = await this.usersService.findOne(id);
@@ -111,7 +112,7 @@ export class CartController {
 
   @Get('/orders')
   @Render('cart/orders')
-  @Auth( ValidRoles.admin )
+  @Auth( ValidRoles.admin,ValidRoles.client )
   async orders(@Req() request, @GetUser() user: User) {
     
     const viewData = [];

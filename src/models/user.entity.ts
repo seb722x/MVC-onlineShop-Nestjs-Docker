@@ -1,18 +1,27 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Order } from './order.entity';
+import { IsPositive } from 'class-validator';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+
+  @Column('text')
   name: string;
+
   @Column({ unique: true })
   email: string;
-  @Column()
+
+  @Column('text', {
+    select: false
+    })
   password: string;
-  @Column()
+
+  @Column('text')
   role: string;
+  
   @Column()
+  @IsPositive()
   balance: number;
 
   @OneToMany(() => Order, (order) => order.user)
